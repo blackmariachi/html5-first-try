@@ -2,13 +2,35 @@
 window.onload = function() {
 
 	var canvas = document.getElementById("game");
-
-	canvas.width = document.body.clientWidth;
-	canvas.height = document.body.clientHeight;
-
 	var c = canvas.getContext("2d");
 
-	showIntro();
+	var State = {
+		_current: 0,
+		INTRO: 0,
+		LOADING: 1,
+		LOADED: 2
+	}
+
+	window.addEventListener("click", handleClick, false);
+	window.addEventListener("resize", doResize, false);
+
+	doResize();
+
+	function handleClick() {
+		State._current = State.LOADING;
+		fadeToWhite();
+	}
+
+	function doResize() {
+		canvas.width = document.body.clientWidth;
+		canvas.height = document.body.clientHeight;
+
+		switch(State._current) {
+			case State.INTRO:
+				showIntro();
+				break;
+		}
+	}
 
 	function showIntro() {
 		var phrase = "Click or tap the screen to start the game";
@@ -49,5 +71,18 @@ window.onload = function() {
 		var textSize = c.measureText(phrase);
 		var xcoord = (canvas.width / 2) - (textSize.width / 2);
 		c.fillText(phrase, xcoord, (logo.y + logo.img.height) + 50);
-	};
+	}
+
+	function fadeToWhite(alphaVal) {
+		var alphaVal = (alphaVal == undefined) ? 0.02 : parseFloat(alphaVal) + 0.02;
+
+		c.fillStyle = "#ffffff";
+		c.globalAlpha = alphaVal;
+
+		c.fillRect(0, 0, canvas.width, canvas.height);
+
+		if(alphaVal < 1.0) {
+			setTimeout(function() { fadeToWhite(alphaVal); }, 30);
+		}
+	}
 }
