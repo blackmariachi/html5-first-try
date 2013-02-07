@@ -1,0 +1,36 @@
+html{
+	height: 100%;
+	overflow: hidden;
+}
+
+body{
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+
+canvas{
+	border: 1px solid black;
+	float: left;
+}
+
+ul{
+	list-style: none;
+	margin: 10px;
+	padding: 0px;
+	float: left;
+}
+
+ul li{
+	font-weight: bold;
+}
+
+ul li span{
+	font-weight: normal;
+}
+
+ul li #preview{
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+}
